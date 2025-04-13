@@ -1,0 +1,18 @@
+<div class="profile-container">
+  <h2>My Profile</h2>
+
+  <mat-card class="profile-card">
+    <div class="profile-image-wrapper">
+      <img [src]="user.profileImageUrl" [alt]="user.name" class="profile-image" />
+    </div>
+
+    <p><strong>Name:</strong> {{ user.name }}</p>
+    <p><strong>Email:</strong> {{ user.email }}</p>
+    <p><strong>Address:</strong> {{ user.address }}</p>
+    <p><strong>Phone:</strong> {{ user.phone }}</p>
+
+    <mat-card-actions>
+      <button mat-raised-button color="primary" (click)="editProfile()">Edit Profile</button>
+    </mat-card-actions>
+  </mat-card>
+</div>

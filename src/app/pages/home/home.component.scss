@@ -1,0 +1,72 @@
+/* Alap stílusok */
+.home-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background: linear-gradient(135deg, #3e2a47, #5f3c56);
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+.home-card {
+  width: 100%;
+  max-width: 600px;
+  margin: 20px;
+  border-radius: 12px;
+  background-color: #ffffff;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+  overflow: hidden;
+  transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+  text-align: center;
+
+  &:hover {
+    transform: translateY(-15px);
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
+  }
+
+  .mat-card-header {
+    background-color: #f9f9f9;
+    padding: 20px;
+  }
+
+  .mat-card-title {
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: #333;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+  }
+
+  .mat-card-content {
+    font-size: 1.3rem;
+    color: #777;
+    padding: 20px 30px;
+    line-height: 1.6;
+  }
+
+  .mat-divider {
+    margin: 20px 0;
+    border-top: 2px solid #D4AF37;
+  }
+
+  .mat-card-actions {
+    margin-top: 30px;
+  }
+
+  .btn-products {
+    background-color: #D4AF37; 
+    color: white;
+    border: none;
+    border-radius: 50px;
+    padding: 15px 40px;
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease-in-out;
+
+    &:hover {
+      background-color: #bfa133;
+      transform: scale(1.05);
+    }
+  }
+}

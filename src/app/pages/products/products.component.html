@@ -1,0 +1,18 @@
+<div class="products-container">
+  <h2>Termékeink</h2>
+  <div class="products-list">
+    <mat-card class="product-card" *ngFor="let product of products" appearance="outlined">
+      <img mat-card-image [src]="product.imageUrl" [alt]="product.name" />
+      <mat-card-content>
+        <h3 class="product-name">{{ product.name }}</h3>
+        <p class="product-description">{{ product.description }}</p>
+        <p class="product-price">{{ product.price | currency: 'HUF' }}</p>
+      </mat-card-content>
+      <mat-card-actions align="end">
+        <button mat-raised-button color="primary" (click)="goToCart()">
+          <mat-icon>shopping_cart</mat-icon> Vásárlás
+        </button>
+      </mat-card-actions>
+    </mat-card>
+  </div>
+</div>
