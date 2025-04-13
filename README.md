@@ -1,2 +1,0 @@
-# diszkont
-angular
