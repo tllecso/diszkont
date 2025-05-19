@@ -1,33 +1,44 @@
 <div class="cart-container">
   <h2>Your Cart</h2>
 
-  <div class="cart-items">
+  <div class="cart-items" *ngIf="cartItems.length > 0; else emptyCart">
     <mat-card *ngFor="let item of cartItems" class="cart-item">
       <mat-card-header>
         <mat-card-title>{{ item.name }}</mat-card-title>
         <mat-card-subtitle>{{ item.description }}</mat-card-subtitle>
       </mat-card-header>
+
       <mat-card-content>
         <div class="cart-details">
           <img class="cart-image" [src]="item.imageUrl" alt="{{ item.name }}" />
-          <div class="price">Price: HUF {{ item.price }}</div>
+          <div class="cart-info">
+            <p>Quantity: {{ item.quantity }}</p>
+            <p>Unit Price: HUF {{ item.price }}</p>
+            <p><strong>Subtotal: HUF {{ item.price * item.quantity }}</strong></p>
+          </div>
         </div>
       </mat-card-content>
-      <mat-divider></mat-divider> <!-- Elválasztó vonal -->
+
+      <mat-divider></mat-divider>
+
       <mat-card-actions>
         <button mat-icon-button color="warn" matTooltip="Remove item" (click)="removeItem(item)">
           <mat-icon>delete</mat-icon>
         </button>
       </mat-card-actions>
     </mat-card>
+
+    <div class="cart-total">
+      <p><strong>Total: HUF {{ getTotal() }}</strong></p>
+    </div>
+
+    <div class="cart-actions">
+      <button mat-raised-button color="primary" (click)="checkout()">Checkout</button>
+      <button mat-raised-button color="warn" (click)="clearCart()">Clear Cart</button>
+    </div>
   </div>
 
-  <div class="cart-total">
-    <p>Total: HUF {{ getTotal() }}</p>
-  </div>
-
-  <div class="cart-actions">
-    <button mat-raised-button color="primary" (click)="checkout()">Checkout</button>
-    <button mat-raised-button color="warn" (click)="clearCart()">Clear Cart</button>
-  </div>
+  <ng-template #emptyCart>
+    <p>Your cart is empty.</p>
+  </ng-template>
 </div>

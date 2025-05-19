@@ -1,0 +1,11 @@
+<div class="filter-container">
+  <mat-form-field appearance="fill">
+    <mat-label>Search...</mat-label>
+    <input matInput [(ngModel)]="filterText" (keyup.enter)="onFilter()" placeholder="Pl. Bumbu">
+  </mat-form-field>
+
+  <div class="filter-actions">
+    <button mat-raised-button color="primary" (click)="onFilter()">Filter</button>
+    <button mat-stroked-button color="warn" (click)="onClear()">Delete</button>
+  </div>
+</div>

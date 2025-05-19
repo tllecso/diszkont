@@ -1,18 +1,15 @@
-<div class="profile-container">
+<div class="profile-container" *ngIf="user">
   <h2>My Profile</h2>
 
   <mat-card class="profile-card">
-    <div class="profile-image-wrapper">
-      <img [src]="user.profileImageUrl" [alt]="user.name" class="profile-image" />
-    </div>
-
-    <p><strong>Name:</strong> {{ user.name }}</p>
+  
     <p><strong>Email:</strong> {{ user.email }}</p>
-    <p><strong>Address:</strong> {{ user.address }}</p>
-    <p><strong>Phone:</strong> {{ user.phone }}</p>
+    <p><strong>User ID:</strong> {{ user.uid }}</p>
 
     <mat-card-actions>
-      <button mat-raised-button color="primary" (click)="editProfile()">Edit Profile</button>
+      <button mat-raised-button color="primary" (click)="resetPassword()">
+        Password change(in email)
+      </button>
     </mat-card-actions>
   </mat-card>
 </div>

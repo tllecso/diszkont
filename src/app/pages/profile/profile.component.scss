@@ -35,13 +35,27 @@
     line-height: 1.6;
   }
 
+  input {
+    width: 100%;
+    padding: 0.75rem;
+    font-size: 1rem;
+    margin-top: 0.5rem;
+    margin-bottom: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+  }
+
   .mat-card-actions {
     display: flex;
     justify-content: center;
+    flex-wrap: wrap;
+    gap: 1rem;
     margin-top: 1.5rem;
   }
 
-  .btn {
+  .btn,
+  button[mat-button],
+  button[mat-stroked-button] {
     padding: 0.8rem 2rem;
     background-color: #d4af37;
     color: white;
@@ -57,5 +71,28 @@
       background-color: #b7891d;
       transform: scale(1.05);
     }
+  }
+
+  button[mat-stroked-button] {
+    background-color: transparent;
+    color: #d4af37;
+    border: 2px solid #d4af37;
+
+    &:hover {
+      background-color: #fff7e0;
+      color: #b7891d;
+      transform: scale(1.05);
+    }
+  }
+}
+
+/* Mobilbarát mód */
+@media (max-width: 600px) {
+  .profile-container {
+    padding: 1rem;
+  }
+
+  .profile-card {
+    padding: 1.5rem;
   }
 }

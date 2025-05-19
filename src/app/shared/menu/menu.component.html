@@ -1,18 +1,45 @@
-<mat-nav-list>
-  <a mat-list-item routerLink="/home" routerLinkActive="active-list-item" (click)="closeMenu()">
-    <mat-icon matListItemIcon>home</mat-icon>
-    <span matListItemTitle>Home</span>
+<a mat-list-item routerLink="/home" routerLinkActive="active-list-item" (click)="closeMenu()">
+  <mat-icon matListItemIcon>home</mat-icon>
+  <span matListItemTitle>Home</span>
+</a>
+
+<a mat-list-item routerLink="/cart" routerLinkActive="active-list-item" (click)="closeMenu()">
+  <mat-icon matListItemIcon>shopping_cart</mat-icon>
+  <span matListItemTitle>Cart</span>
+</a>
+
+<a mat-list-item routerLink="/products" routerLinkActive="active-list-item" (click)="closeMenu()">
+  <mat-icon matListItemIcon>storefront</mat-icon>
+  <span matListItemTitle>Products</span>
+</a>
+
+<!-- 🔐 Bejelentkezve -->
+<ng-container *ngIf="user$ | async as user; else guestLinks">
+  <a mat-list-item routerLink="/add-product" routerLinkActive="active-list-item" (click)="closeMenu()">
+    <mat-icon matListItemIcon>add</mat-icon>
+    <span matListItemTitle>Új termék</span>
   </a>
-  <a mat-list-item routerLink="/cart" routerLinkActive="active-list-item" (click)="closeMenu()">
-    <mat-icon matListItemIcon>shopping_cart</mat-icon>
-    <span matListItemTitle>Cart</span>
-  </a>
-  <a mat-list-item routerLink="/products" routerLinkActive="active-list-item" (click)="closeMenu()">
-    <mat-icon matListItemIcon>storefront</mat-icon>
-    <span matListItemTitle>Products</span>
-  </a>
+
   <a mat-list-item routerLink="/profile" routerLinkActive="active-list-item" (click)="closeMenu()">
     <mat-icon matListItemIcon>person</mat-icon>
-    <span matListItemTitle>Profile</span>
-  </a>  
-</mat-nav-list>
+    <span matListItemTitle>Profil</span>
+  </a>
+
+  <a mat-list-item (click)="logout()">
+    <mat-icon matListItemIcon>logout</mat-icon>
+    <span matListItemTitle>Kijelentkezés</span>
+  </a>
+</ng-container>
+
+<!-- 🔓 Vendégként -->
+<ng-template #guestLinks>
+  <a mat-list-item routerLink="/login" routerLinkActive="active-list-item" (click)="closeMenu()">
+    <mat-icon matListItemIcon>login</mat-icon>
+    <span matListItemTitle>Bejelentkezés</span>
+  </a>
+
+  <a mat-list-item routerLink="/register" routerLinkActive="active-list-item" (click)="closeMenu()">
+    <mat-icon matListItemIcon>person_add</mat-icon>
+    <span matListItemTitle>Regisztráció</span>
+  </a>
+</ng-template>

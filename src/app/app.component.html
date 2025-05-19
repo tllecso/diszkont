@@ -1,29 +1,48 @@
 <mat-sidenav-container>
-    <mat-sidenav #sidenav>
-      <app-menu [sidenav]="sidenav"></app-menu>
-    </mat-sidenav>
-    <mat-sidenav-content>
-      <mat-toolbar>
-        <button 
-          mat-button 
-          (click)="onToggleSidenav(sidenav)"
-          class="menu-toggle-button">
-          <mat-icon>menu</mat-icon>
-        </button>
-        <span class="logo">
-          <mat-icon class="rum-icon">local_bar</mat-icon> <!-- Bárpult ikon -->
-          Ital Diszkont <!-- Szöveg közvetlenül az ikon után -->
-        </span>
-        <nav>
-          <ul>
-            <li><a routerLink="/home">Home</a></li>
-            <li><a routerLink="/cart">Cart</a></li>
-            <li><a routerLink="/products">Products</a></li>
-            <li><a routerLink="/profile">Profile</a></li>
-          </ul>
-        </nav>
-      </mat-toolbar>
-      <router-outlet />
-    </mat-sidenav-content>
-  </mat-sidenav-container>
-  
+  <mat-sidenav #sidenav>
+    <app-menu [sidenav]="sidenav"></app-menu>
+  </mat-sidenav>
+
+  <mat-sidenav-content>
+    <mat-toolbar>
+      <button 
+        mat-button 
+        (click)="onToggleSidenav(sidenav)"
+        class="menu-toggle-button">
+        <mat-icon>menu</mat-icon>
+      </button>
+
+      <span class="logo">
+        <mat-icon class="rum-icon">local_bar</mat-icon>
+        Ital Diszkont
+      </span>
+
+      <span class="spacer"></span>
+
+      <!-- 🔐 Bejelentkezett felhasználónak -->
+      <ng-container *ngIf="user$ | async as user; else guestLinks">
+        <ul>
+          <li><a routerLink="/home">Home</a></li>
+          <li><a routerLink="/cart">Cart</a></li>
+          <li><a routerLink="/products">Products</a></li>
+          <li><a routerLink="/profile">Profile</a></li>
+          <li><a routerLink="/add-product">Add Products</a></li>
+          <li><a (click)="logout()">Logout</a></li>
+        </ul>
+      </ng-container>
+
+      <!-- 🔓 Vendégként -->
+      <ng-template #guestLinks>
+        <ul>
+          <li><a routerLink="/home">Home</a></li>
+          <li><a routerLink="/cart">Cart</a></li>
+          <li><a routerLink="/products">Products</a></li>
+          <li><a routerLink="/login">Login</a></li>
+          <li><a routerLink="/register">Register</a></li>
+        </ul>
+      </ng-template>
+    </mat-toolbar>
+
+    <router-outlet></router-outlet>
+  </mat-sidenav-content>
+</mat-sidenav-container>

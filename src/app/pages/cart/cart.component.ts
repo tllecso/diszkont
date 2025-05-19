@@ -5,52 +5,49 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatDividerModule } from '@angular/material/divider';
-
-interface Product {
-  id: number;
-  name: string;
-  description: string;
-  price: number;
-  imageUrl: string;
-}
+import { CartService } from '../../shared/services/cart.service';
 
 @Component({
   selector: 'app-cart',
-  imports: [CommonModule, MatCardModule, MatButtonModule, MatIconModule, MatTooltipModule, MatDividerModule],
+  standalone: true,
+  imports: [
+    CommonModule,
+    MatCardModule,
+    MatButtonModule,
+    MatIconModule,
+    MatTooltipModule,
+    MatDividerModule
+  ],
   templateUrl: './cart.component.html',
   styleUrls: ['./cart.component.scss']
 })
 export class CartComponent implements OnInit {
-  cartItems: Product[] = [];
+  cartItems: any[] = [];
+
+  constructor(private cartService: CartService) {}
 
   ngOnInit(): void {
-    this.cartItems = [
-      {
-        id: 1,
-        name: 'Plantation XO',
-        description: 'A blend of rums from across the Caribbean, often finished in unique casks (cognac, sherry).',
-        price: 18000,
-        imageUrl: 'images/plantationxo.jpg'
-      }
-    ];
+    this.cartService.getCartItems().subscribe(items => {
+      this.cartItems = items;
+    });
   }
 
   getTotal(): number {
-    return this.cartItems.reduce((total, item) => total + item.price, 0);
+    return this.cartItems.reduce((total, item) => total + item.price * item.quantity, 0);
   }
 
-  checkout(): void {
-    alert('Thank you for your purchase!');
-    this.cartItems = []; // Empty the cart
+  removeItem(item: any): void {
+    this.cartService.removeItem(item.id);
   }
 
   clearCart(): void {
-    if (confirm('Are you sure you want to delete the item(s)?')) {
-      this.cartItems = [];
+    if (confirm('Are you sure you want to delete your cart')) {
+      this.cartService.clearCart();
     }
   }
 
-  removeItem(item: Product): void {
-    this.cartItems = this.cartItems.filter(cartItem => cartItem.id !== item.id);
+  checkout(): void {
+    alert('Thank You for your purchase!');
+    this.cartService.clearCart();
   }
 }

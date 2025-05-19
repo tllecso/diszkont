@@ -5,13 +5,12 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { Router } from '@angular/router';
 
-export interface Product {
-  id: number;
-  name: string;
-  description: string;
-  price: number;
-  imageUrl: string;
-}
+import { PricePipe } from '../../shared/pipes/price.pipe';
+import { ShortenPipe } from '../../shared/pipes/shorten.pipe';
+import { Product } from '../../models/product.model';
+import { ProductService } from '../../shared/services/product.service';
+import { CartService } from '../../shared/services/cart.service';
+import { ProductFilterComponent } from '../product-filter/product-filter.component';
 
 @Component({
   selector: 'app-products',
@@ -20,25 +19,47 @@ export interface Product {
     CommonModule,
     MatCardModule,
     MatButtonModule,
-    MatIconModule
+    MatIconModule,
+    PricePipe,
+    ShortenPipe,
+    ProductFilterComponent
   ],
   templateUrl: './products.component.html',
   styleUrls: ['./products.component.scss']
 })
 export class ProductsComponent implements OnInit {
-  products: Product[] = [
-    { id: 1, name: 'Bumbu Original', description: 'A smooth, craft rum inspired by the Caribbean’s 16th-century traditions, infused with natural spices.', price: 12000, imageUrl: 'images/bumbu.jpg'},
-    { id: 2, name: 'Diplomatico', description: 'Venezuelan rum known for its rich, sweet, and complex flavor profile, perfect for sipping.', price: 14000, imageUrl: 'images/diplomatico.jpg' },
-    { id: 3, name: 'Zacapa ', description: 'Guatemalan rum aged in the highlands, offering a velvety, sweet, and oak-influenced profile.', price: 20000, imageUrl: 'images/zacapaxo.jpg' },
-    { id: 4, name: 'Plantation XO', description: 'A blend of rums from across the Caribbean, often finished in unique casks (cognac, sherry).', price: 18000, imageUrl: 'images/plantationxo.jpg' },
-    { id: 5, name: 'El Dorado XII', description: ' Legendary Guyanese rum aged in oak barrels, famous for its deep, molasses-rich taste.', price: 10000, imageUrl: 'images/eldorado12.jpg' },
-  ];
+  products: Product[] = [];
+  filteredProducts: Product[] = [];
 
-  constructor(private router: Router) {}
+  constructor(
+    private router: Router,
+    private productService: ProductService,
+    private cartService: CartService
+  ) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.productService.getProducts().subscribe(products => {
+      this.products = products;
+      this.filteredProducts = products;
+    });
+  }
+
+  addToCart(product: Product): void {
+    this.cartService.addToCart(product).then(() => {
+      alert(`✅  "${product.name}" Added to the cart`);
+    }).catch(error => {
+      alert('❌ Error during activity ' + error.message);
+    });
+  }
 
   goToCart(): void {
     this.router.navigate(['/cart']);
+  }
+
+  onFilterChanged(filterText: string): void {
+    const lower = filterText.toLowerCase();
+    this.filteredProducts = this.products.filter(p =>
+      p.name.toLowerCase().includes(lower)
+    );
   }
 }
